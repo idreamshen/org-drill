@@ -3074,7 +3074,9 @@ all drill items are considered to be due for review, unless they
 have been reviewed within the last `org-drill-cram-hours'
 hours."
   (interactive)
-  (setq (oref session cram-mode) t)
+  (when (and (boundp 'session) (object-of-class-p session 'org-drill-session-class))
+    (oset session cram-mode t)
+  (setq (oref session cram-mode) t))
   (org-drill scope drill-match))
 
 (defun org-drill-cram-tree ()
